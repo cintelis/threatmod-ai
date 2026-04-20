@@ -2,6 +2,7 @@
   "name": "threatmod-ai",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "tsx watch server/index.ts",
     "build": "tsc",
