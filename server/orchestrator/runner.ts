@@ -1,6 +1,6 @@
 import { createProvider } from '../llm'
 import { runIngestion } from './ingestion'
-import { runStridePool } from './stridePool'
+import { runAnalysisPool } from './analysisPool'
 import { summariseDocs } from '../agents/summariser'
 import { enrichDocument } from '../agents/enrichment'
 import { transition, getState, PipelineRun } from './stateMachine'
@@ -17,22 +17,22 @@ export async function runPipeline(run: PipelineRun): Promise<void> {
   const afterIngestion = getState(run.id)
   if (!afterIngestion || afterIngestion.run.status !== 'ANALYSING') return
 
-  let strideResults
+  let analysisResults
   try {
-    strideResults = await runStridePool(afterIngestion.run, provider)
+    analysisResults = await runAnalysisPool(afterIngestion.run, provider)
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err)
-    transition(run.id, 'REJECTED', `STRIDE analysis failed: ${detail}`)
+    transition(run.id, 'REJECTED', `Analysis failed: ${detail}`)
     return
   }
 
-  transition(run.id, 'SUMMARISING', `${strideResults.length} STRIDE document(s) generated`)
+  transition(run.id, 'SUMMARISING', `${analysisResults.length} architecture(s) analysed`)
 
   const afterAnalysis = getState(run.id)!
   const outputPath = `${config.github.outputFolder}/${afterAnalysis.run.project_id}-threat-model.md`
 
   try {
-    await summariseDocs(strideResults, provider, { run: afterAnalysis.run, outputPath })
+    await summariseDocs(analysisResults, provider, { run: afterAnalysis.run, outputPath })
   } catch (err) {
     const detail = err instanceof Error ? err.message : String(err)
     transition(run.id, 'REJECTED', `Summarisation failed: ${detail}`)
@@ -46,7 +46,7 @@ export async function runPipeline(run: PipelineRun): Promise<void> {
     await triggerApproval({
       runId: run.id,
       documentUrl,
-      summary: `Threat model ready for review — ${strideResults.length} architecture(s) analysed`,
+      summary: `Threat model ready for review — ${analysisResults.length} architecture(s) analysed`,
       approverEmail: config.pipeline.approverEmail,
       callbackUrl,
     })

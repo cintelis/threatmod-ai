@@ -41,6 +41,8 @@ export const config = {
     approvalTimeoutHours: Number(process.env.APPROVAL_TIMEOUT_HOURS) || 72,
     approverEmail: process.env.APPROVER_EMAIL || '',
     apiKey: process.env.PIPELINE_API_KEY || '',
+    enableAttackMapping: (process.env.ENABLE_ATTACK_MAPPING || 'true').toLowerCase() !== 'false',
+    enableLlmTop10: ((process.env.ENABLE_LLM_TOP10 || 'auto').toLowerCase() as 'true' | 'false' | 'auto'),
   },
   serverBaseUrl: process.env.SERVER_BASE_URL || `http://localhost:${Number(process.env.PORT) || 3000}`,
 }
