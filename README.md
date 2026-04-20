@@ -1,6 +1,6 @@
 # ThreatMod AI
 
-**ThreatMod AI** is an AI-powered security threat modelling pipeline. Feed it architecture documentation from a GitHub repository and it returns a reviewed, published STRIDE threat model — with AWS control verification — committed back to GitHub and published to Confluence.
+**ThreatMod AI** is an AI-powered security threat modelling pipeline. Feed it architecture documentation from a GitHub repository and it returns a reviewed, published threat model — combining **STRIDE**, **MITRE ATT&CK** tactic mapping, and **OWASP LLM Top 10** analysis, with AWS control verification — committed back to GitHub and published to Confluence.
 
 ---
 
@@ -9,7 +9,7 @@
 Give the tool an architecture document (markdown in a GitHub repo) and it will:
 
 1. **Ingest** all architecture docs from a configured folder in that repo.
-2. **Analyse** them through a STRIDE threat model using an LLM (Anthropic Claude or Azure OpenAI).
+2. **Analyse** them through three complementary methodologies in parallel: STRIDE, MITRE ATT&CK tactic mapping, and OWASP LLM Top 10 (auto-gated to AI/ML components). Uses an LLM (Anthropic Claude or Azure OpenAI).
 3. **Summarise** per-document threats into a unified threat model.
 4. **Route for approval** via a Power Automate webhook, pausing until a security reviewer approves or rejects the draft.
 5. **Enrich** approved threats by mapping them to STRIDE-to-AWS control mappings.
@@ -22,10 +22,15 @@ Every state transition is persisted and auditable.
 
 ## Features
 
-### STRIDE threat analysis
+### Multi-methodology threat analysis
+- Runs three complementary methodologies per architecture, in parallel:
+  - **STRIDE** (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) — the baseline threat inventory.
+  - **MITRE ATT&CK tactic mapping** — for each STRIDE threat, identifies the ATT&CK Enterprise tactics and techniques an adversary could plausibly use. Defensive framing.
+  - **OWASP LLM Top 10** — AI/ML-specific risks (prompt injection, excessive agency, improper output handling, etc.). Gated by a cheap keyword pre-check so non-AI architectures skip the LLM call entirely.
 - Dual-provider LLM layer — swap between Anthropic Claude Sonnet 4.6 and Azure OpenAI GPT-4o via one env var (`LLM_PROVIDER`).
-- Parallel analysis of large multi-file architectures via `stridePool`.
-- Versioned prompts in `server/prompts/*.md` — no hardcoded prompts in TypeScript.
+- Parallel analysis of large multi-file architectures via `analysisPool`.
+- Feature flags: `ENABLE_ATTACK_MAPPING` (`true`/`false`) and `ENABLE_LLM_TOP10` (`true`/`false`/`auto`).
+- Versioned prompts in `server/prompts/*.md` — one prompt per methodology, no hardcoded prompts in TypeScript.
 
 ### AWS control verification
 - `awsExtractor` identifies AWS services referenced in the architecture.
@@ -99,7 +104,7 @@ IDLE ─▶ INGESTING ─▶ ANALYSING ─▶ SUMMARISING ─▶ AWAITING_APPROV
 | Stage | Modules | What happens |
 |---|---|---|
 | `INGESTING` | `orchestrator/ingestion.ts`, `connectors/github.ts` | Lists architecture docs in the configured GitHub folder and reads each file. |
-| `ANALYSING` | `agents/strideAgent.ts`, `orchestrator/stridePool.ts` | Runs STRIDE analysis across all docs in parallel. |
+| `ANALYSING` | `orchestrator/analysisPool.ts`, `agents/strideAgent.ts`, `agents/attackMappingAgent.ts`, `agents/llmTop10Agent.ts` | Runs STRIDE, MITRE ATT&CK mapping, and (auto-gated) OWASP LLM Top 10 in parallel across all docs. |
 | `SUMMARISING` | `agents/summariser.ts` | Consolidates per-document threats into a single model. |
 | `AWAITING_APPROVAL` | `agents/publisher.ts` (draft commit), `orchestrator/approvalWatcher.ts`, `connectors/powerAutomate.ts` | Commits draft, sends approval webhook, waits. |
 | `ENRICHING` | `agents/enrichment.ts`, `db/controlMappings.ts` | Maps approved threats to AWS controls. |
@@ -151,7 +156,10 @@ After the draft is reviewed, Power Automate (or a test caller) posts to `/api/v1
 
 ### GitHub commit
 - **Path**: `<GITHUB_OUTPUT_FOLDER>/<project_id>-threat-model.md` (default `threat-models/`).
-- **Format**: Markdown with STRIDE-grouped threats, per-threat details (description, likelihood, impact, mitigation, AWS control reference), and an executive summary.
+- **Format**: Markdown consolidated across source architectures, with:
+  - STRIDE executive summary, threat inventory, detailed per-threat analysis, AWS services identified, and assumptions.
+  - A `## MITRE ATT&CK Tactic Mapping` section — table of STRIDE threats mapped to ATT&CK tactics and technique IDs with defensive rationale.
+  - A `## OWASP LLM Top 10 Findings` section — emitted only when AI/ML components are present and findings were identified. Includes coverage notes for skipped or empty analyses.
 
 ### Confluence page
 - **Space / parent**: `CONFLUENCE_SPACE_ID` / `CONFLUENCE_PARENT_PAGE_ID`.
@@ -353,11 +361,13 @@ threatmod/
 │   │   ├── stateMachine.ts      legal transition graph
 │   │   ├── runner.ts
 │   │   ├── ingestion.ts
-│   │   ├── stridePool.ts
+│   │   ├── analysisPool.ts      multi-methodology orchestration
 │   │   ├── verificationRunner.ts
 │   │   └── approvalWatcher.ts
 │   ├── agents/                  single-responsibility workers
 │   │   ├── strideAgent.ts
+│   │   ├── attackMappingAgent.ts
+│   │   ├── llmTop10Agent.ts
 │   │   ├── summariser.ts
 │   │   ├── enrichment.ts
 │   │   ├── awsExtractor.ts
@@ -376,6 +386,8 @@ threatmod/
 │   │   └── azureOpenAI.ts
 │   ├── prompts/                 versioned prompt markdown
 │   │   ├── stride.md
+│   │   ├── attack-mapping.md
+│   │   ├── llm-top10.md
 │   │   └── summarise.md
 │   └── db/                      better-sqlite3 + migrations
 │       ├── client.ts
@@ -473,6 +485,8 @@ All env vars are loaded in `server/config.ts` and documented in `.env.example`.
 | `SECONDARY_APPROVER_EMAIL` | — | no | Escalation approver |
 | `APPROVER_EMAIL` | — | no | Default primary approver (overridden per-run by request body) |
 | `APPROVAL_TIMEOUT_HOURS` | `72` | no | Escalation timeout |
+| `ENABLE_ATTACK_MAPPING` | `true` | no | `true` / `false` — enables MITRE ATT&CK tactic mapping alongside STRIDE |
+| `ENABLE_LLM_TOP10` | `auto` | no | `true` / `false` / `auto` — OWASP LLM Top 10 analysis (`auto` gates on AI keyword detection in the architecture doc) |
 | `MCP_SERVER_ENDPOINT` | — | for verification | AWS MCP Server URL |
 | `MCP_AUTH_METHOD` | `api-key` | no | MCP auth method |
 | `MCP_API_KEY` | — | if api-key | AWS MCP API key |
