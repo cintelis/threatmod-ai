@@ -11,3 +11,6 @@ dist/
 # Local junction / Windows shortcut to agent instructions (per-machine, not for the repo)
 _agent-instructions
 _agent-instructions.lnk
+
+# Per-role agent anchor — mutated by switch-agent.ps1 on every role switch, per-machine
+AGENTS.md
