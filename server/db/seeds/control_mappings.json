@@ -1,0 +1,359 @@
+[
+  {
+    "stride_category": "Spoofing",
+    "framework": "NIST 800-53",
+    "control_id": "IA-2",
+    "control_name": "Identification and Authentication (Organizational Users)",
+    "description": "Uniquely identify and authenticate organizational users and processes acting on behalf of organizational users"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "NIST 800-53",
+    "control_id": "IA-3",
+    "control_name": "Device Identification and Authentication",
+    "description": "Uniquely identify and authenticate devices before establishing connections to the system"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "NIST 800-53",
+    "control_id": "IA-8",
+    "control_name": "Identification and Authentication (Non-Organizational Users)",
+    "description": "Uniquely identify and authenticate non-organizational users or processes acting on behalf of non-organizational users"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "NIST 800-53",
+    "control_id": "AC-17",
+    "control_name": "Remote Access",
+    "description": "Establish and document usage restrictions, configuration and connection requirements, and implementation guidance for remote access"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "NIST 800-53",
+    "control_id": "SC-8",
+    "control_name": "Transmission Confidentiality and Integrity",
+    "description": "Implement cryptographic mechanisms to prevent unauthorized disclosure and modification of information during transmission"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 5.1",
+    "control_name": "Establish and Maintain an Inventory of Accounts",
+    "description": "Establish and maintain an inventory of all accounts managed in the enterprise including service and administrator accounts"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 5.2",
+    "control_name": "Use Unique Passwords",
+    "description": "Use unique passwords for all enterprise assets to prevent credential reuse attacks and identity spoofing"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.9.2.1",
+    "control_name": "User Registration and De-registration",
+    "description": "Implement a formal user registration and de-registration process to enable assignment of access rights"
+  },
+  {
+    "stride_category": "Spoofing",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.9.4.2",
+    "control_name": "Secure Log-on Procedures",
+    "description": "Implement secure log-on procedures to control access to systems and applications where required by the access control policy"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "NIST 800-53",
+    "control_id": "SI-3",
+    "control_name": "Malicious Code Protection",
+    "description": "Implement malicious code protection mechanisms at system entry and exit points to detect and eradicate malicious code"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "NIST 800-53",
+    "control_id": "SI-7",
+    "control_name": "Software, Firmware, and Information Integrity",
+    "description": "Employ integrity verification tools to detect unauthorized changes to software, firmware, and information"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "NIST 800-53",
+    "control_id": "SC-8",
+    "control_name": "Transmission Confidentiality and Integrity",
+    "description": "Implement cryptographic mechanisms to prevent unauthorized disclosure and modification of information during transmission"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "NIST 800-53",
+    "control_id": "AC-3",
+    "control_name": "Access Enforcement",
+    "description": "Enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "NIST 800-53",
+    "control_id": "CM-3",
+    "control_name": "Configuration Change Control",
+    "description": "Implement a configuration change control process to track, review, approve, and log changes to the system"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 3.3",
+    "control_name": "Configure Data Access Control Lists",
+    "description": "Configure data access control lists based on a user's need to know to prevent unauthorized tampering with data"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 4.1",
+    "control_name": "Establish and Maintain a Secure Configuration Process",
+    "description": "Establish and maintain a secure configuration process for enterprise assets and software to prevent unauthorized modifications"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.8.3.3",
+    "control_name": "Physical Media Transfer",
+    "description": "Protect media containing information from unauthorized access, misuse, or corruption during transportation"
+  },
+  {
+    "stride_category": "Tampering",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.12.2.1",
+    "control_name": "Controls Against Malware",
+    "description": "Implement detection, prevention, and recovery controls to protect against malware combined with appropriate user awareness"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "NIST 800-53",
+    "control_id": "AU-2",
+    "control_name": "Event Logging",
+    "description": "Identify the types of events that the system is capable of logging in support of the audit function and coordinate the event logging function with other organizations"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "NIST 800-53",
+    "control_id": "AU-3",
+    "control_name": "Content of Audit Records",
+    "description": "Ensure audit records contain sufficient information to establish what events occurred, the sources of events, and the outcomes of events"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "NIST 800-53",
+    "control_id": "AU-9",
+    "control_name": "Protection of Audit Information",
+    "description": "Protect audit information and audit tools from unauthorized access, modification, and deletion"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "NIST 800-53",
+    "control_id": "AU-12",
+    "control_name": "Audit Record Generation",
+    "description": "Provide audit record generation capability for the event types defined in AU-2 on system components and generate audit records"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 8.2",
+    "control_name": "Collect Audit Logs",
+    "description": "Collect audit logs to ensure non-repudiation and enable forensic analysis of security events"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 8.5",
+    "control_name": "Collect Detailed Audit Logs",
+    "description": "Configure detailed audit logging for enterprise assets to capture user activity and provide evidence of actions taken"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.12.4.1",
+    "control_name": "Event Logging",
+    "description": "Produce, keep, and regularly review event logs recording user activities, exceptions, faults, and information security events"
+  },
+  {
+    "stride_category": "Repudiation",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.12.4.3",
+    "control_name": "Administrator and Operator Logs",
+    "description": "Log system administrator and system operator activities and protect and regularly review those logs"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "NIST 800-53",
+    "control_id": "AC-3",
+    "control_name": "Access Enforcement",
+    "description": "Enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "NIST 800-53",
+    "control_id": "AC-4",
+    "control_name": "Information Flow Enforcement",
+    "description": "Enforce approved authorizations for controlling the flow of information within the system and between connected systems"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "NIST 800-53",
+    "control_id": "SC-8",
+    "control_name": "Transmission Confidentiality and Integrity",
+    "description": "Implement cryptographic mechanisms to prevent unauthorized disclosure and modification of information during transmission"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "NIST 800-53",
+    "control_id": "SC-28",
+    "control_name": "Protection of Information at Rest",
+    "description": "Implement cryptographic mechanisms to prevent unauthorized disclosure and modification of information at rest"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "NIST 800-53",
+    "control_id": "RA-5",
+    "control_name": "Vulnerability Monitoring and Scanning",
+    "description": "Monitor and scan for vulnerabilities in the system and hosted applications to prevent exploitation leading to information disclosure"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 3.11",
+    "control_name": "Encrypt Sensitive Data at Rest",
+    "description": "Encrypt sensitive data at rest on servers, applications, and databases containing sensitive data to prevent unauthorized disclosure"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 13.1",
+    "control_name": "Centralize Security Event Alerting",
+    "description": "Centralize security event alerting across enterprise assets for log correlation and analysis to detect information disclosure events"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.8.2.3",
+    "control_name": "Handling of Assets",
+    "description": "Develop and implement procedures for handling assets in accordance with the information classification scheme to prevent unauthorized disclosure"
+  },
+  {
+    "stride_category": "Information Disclosure",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.10.1.1",
+    "control_name": "Policy on the Use of Cryptographic Controls",
+    "description": "Develop and implement a policy on the use of cryptographic controls for protection of information to ensure confidentiality"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "NIST 800-53",
+    "control_id": "SC-5",
+    "control_name": "Denial-of-Service Protection",
+    "description": "Protect against and limit the effects of denial-of-service attacks, including resource exhaustion attacks"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "NIST 800-53",
+    "control_id": "SC-6",
+    "control_name": "Resource Availability",
+    "description": "Protect the availability of resources by allocating resources by priority, quota, and partitioning to prevent denial-of-service conditions"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "NIST 800-53",
+    "control_id": "CP-10",
+    "control_name": "System Recovery and Reconstitution",
+    "description": "Provide for the recovery and reconstitution of the system to a known state within organization-defined time periods after a disruption"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "NIST 800-53",
+    "control_id": "IR-4",
+    "control_name": "Incident Handling",
+    "description": "Implement an incident handling capability for security incidents that includes preparation, detection, analysis, containment, eradication, and recovery"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 9.2",
+    "control_name": "Use DNS Filtering Services",
+    "description": "Use DNS filtering services on all enterprise assets to block access to known malicious domains and reduce denial-of-service attack vectors"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 12.3",
+    "control_name": "Manage Network Infrastructure",
+    "description": "Securely manage network infrastructure to prevent exploitation of network devices that could be used to amplify denial-of-service attacks"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.12.1.3",
+    "control_name": "Capacity Management",
+    "description": "Monitor and tune the use of resources and make projections of future capacity requirements to ensure required system performance to avoid denial of service"
+  },
+  {
+    "stride_category": "Denial of Service",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.17.1.1",
+    "control_name": "Planning Information Security Continuity",
+    "description": "Determine requirements for information security and the continuity of information security management in adverse situations such as crisis or disaster"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "NIST 800-53",
+    "control_id": "AC-2",
+    "control_name": "Account Management",
+    "description": "Manage system accounts, group memberships, privileges, workflow, notifications, deactivations, and authorizations to prevent privilege escalation"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "NIST 800-53",
+    "control_id": "AC-6",
+    "control_name": "Least Privilege",
+    "description": "Employ the principle of least privilege, allowing only authorized accesses for users and processes which are necessary to accomplish assigned organizational tasks"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "NIST 800-53",
+    "control_id": "AC-17",
+    "control_name": "Remote Access",
+    "description": "Establish usage restrictions and implementation guidance for remote access and monitor remote access to detect privilege escalation attempts"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "NIST 800-53",
+    "control_id": "CM-6",
+    "control_name": "Configuration Settings",
+    "description": "Establish and document configuration settings for technology products employed within the system that reflect the most restrictive mode consistent with operational requirements"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 5.4",
+    "control_name": "Restrict Administrator Privileges to Dedicated Administrator Accounts",
+    "description": "Restrict administrator privileges to dedicated administrator accounts on enterprise assets to prevent privilege escalation and lateral movement"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "CIS Controls v8",
+    "control_id": "CIS 6.3",
+    "control_name": "Require MFA for Externally-Exposed Applications",
+    "description": "Require all externally-exposed enterprise or third-party applications to enforce MFA to prevent unauthorized elevation of privilege"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.9.2.3",
+    "control_name": "Management of Privileged Access Rights",
+    "description": "Restrict and control the allocation and use of privileged access rights to prevent unauthorized elevation of privilege"
+  },
+  {
+    "stride_category": "Elevation of Privilege",
+    "framework": "ISO 27001:2022",
+    "control_id": "A.9.4.1",
+    "control_name": "Information Access Restriction",
+    "description": "Restrict access to information and application system functions in accordance with the access control policy to prevent unauthorized privilege escalation"
+  }
+]
