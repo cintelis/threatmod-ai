@@ -7,7 +7,10 @@
     "dev": "tsx watch server/index.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "db:migrate": "tsx server/db/migrate.ts"
+    "db:migrate": "tsx server/db/migrate.ts",
+    "test": "npm run test:unit",
+    "test:unit": "node --import tsx --test tests/unit/attackMappingAgent.test.ts tests/unit/llmTop10Agent.test.ts",
+    "test:e2e": "tsx tests/e2e/fullPipeline.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",

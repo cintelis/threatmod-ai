@@ -60,7 +60,7 @@ const VALID_SEVERITY = new Set<Severity>(['Critical', 'High', 'Medium', 'Low'])
 const VALID_LIKELIHOOD = new Set<Likelihood>(['High', 'Medium', 'Low'])
 
 const AI_KEYWORD_REGEX =
-  /\b(llm|gpt|claude|openai|anthropic|chatgpt|langchain|llama|huggingface|embedding|rag|genai|bedrock|copilot)\b/i
+  /\b(llm|llms|gpt|claude|openai|anthropic|chatgpt|langchain|llama|huggingface|embeddings?|rag|genai|bedrock|copilots?)\b/i
 
 const AI_SUBSTRINGS: readonly string[] = [
   'large language model',
@@ -133,8 +133,8 @@ export async function analyseLlmTop10(
     return { filename: doc.filename, findings: [], skipped: true }
   }
 
-  const timeoutPromise = new Promise<never>((_, reject) =>
-    setTimeout(
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    const handle = setTimeout(
       () =>
         reject(
           new Error(
@@ -143,7 +143,9 @@ export async function analyseLlmTop10(
         ),
       TIMEOUT_MS
     )
-  )
+    // See attackMappingAgent.ts — do not keep the event loop alive for this safety-net timer.
+    handle.unref()
+  })
 
   const analysisPromise = (async (): Promise<LlmTop10Result> => {
     const messages: LLMMessage[] = [

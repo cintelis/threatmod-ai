@@ -73,12 +73,15 @@ export async function mapStrideToAttack(
   strideResult: StrideResult,
   provider: LLMProvider
 ): Promise<AttackMappingResult> {
-  const timeoutPromise = new Promise<never>((_, reject) =>
-    setTimeout(
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    const handle = setTimeout(
       () => reject(new Error(`ATT&CK mapping timed out after ${TIMEOUT_MS / 1000}s for file: ${strideResult.filename}`)),
       TIMEOUT_MS
     )
-  )
+    // Do not keep the Node event loop alive solely for this timer —
+    // it is a safety net against a hung LLM call, not a heartbeat.
+    handle.unref()
+  })
 
   const analysisPromise = (async (): Promise<AttackMappingResult> => {
     const messages: LLMMessage[] = [
